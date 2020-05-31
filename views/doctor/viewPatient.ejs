@@ -20,6 +20,8 @@
 
      <!-- Title Icon -->
     <link rel="icon" href="/icon.ico" alt="Logo">
+
+
 </head>
 
   <body style="height: 100%" class="admin">
@@ -148,7 +150,7 @@
 
             <div class="col-md-12 text-center" style="margin-top: 80px;">
              
-                   <h1>Patients Lists</h1>
+              <h1>Patients Lists</h1>
 
                            <table border="1"  class="table">
                     <tr>
@@ -173,12 +175,23 @@
                       <td><%= userList[i].address %></td>
                       <td>
                         <a href="/doctor/patientedit/<%= userList[i].id %>" style="color: blue;">Edit</a> | 
-                        <a href="/doctor/patientdelete/<%= userList[i].id%>" style="color: blue;">Delete</a>
+                        <a href="/doctor/patientdelete/<%= userList[i].id%>" style="color: red;">Delete</a>
                       </td>
                     </tr>
 
                     <% } %>
                   </table>
+                  <form action="" method="POST">
+                    <div class="col-sm-6 col-md-12">
+                        <div class="form-group form-focus">
+                            <label class="focus-label" height=""></label>
+                            <input type="text" class="" name="search" placeholder="Search By Name" >
+                            
+                            <button formaction="/doctor/viewpct/search" type="submit" class="btn btn-success">Search</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
 
                                   
               
@@ -189,6 +202,7 @@
        </div>
       
     </div>
+    
 
 
 

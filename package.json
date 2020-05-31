@@ -1,7 +1,6 @@
 {
   "name": "projectdoctor",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "dependencies": {
     "alert-node": "^1.2.7",
@@ -11,14 +10,30 @@
     "ejs": "^2.7.4",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
-    "express-validator": "^5.3.1",
+    "express-validator": "^6.4.0",
+    "file": "^0.2.2",
+    "flash": "^1.1.0",
+    "fs": "0.0.1-security",
     "js-alert": "^1.0.4",
-    "mysql": "^2.18.1"
+    "multer": "^1.4.2",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.4.4",
+    "path": "^0.12.7",
+    "random-token": "0.0.8"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Riadulislam909/Doctors-panel.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Riadulislam909/Doctors-panel/issues"
+  },
+  "homepage": "https://github.com/Riadulislam909/Doctors-panel#readme",
+  "description": ""
 }

@@ -23,7 +23,7 @@ module.exports = {
 	},
 
 	getAll: function(callback){
-		var sql = "SELECT * FROM `report`";
+		var sql = "SELECT * FROM `report` order by id desc";
 		db.getResult(sql, [], function(results){
 			callback(results);
 		});	

@@ -157,6 +157,7 @@
                       <td>Problems</td>
                       <td>Regestard Doctor</td>
                       <td>Address</td>
+                      <td>Availabe Time</td>
                       <td>Actions</td>
 
                     </tr>
@@ -170,8 +171,10 @@
                       <td><%= userList[i].problem %></td>
                       <td><%= userList[i].doctor %></td>
                       <td><%= userList[i].address %></td>
+                      <td><%= userList[i].time %></td>
                       <td> 
-                        <a href="/doctor/appointdelete/<%= userList[i].id%>" style="color: blue;">Delete</a>
+                        <a href="/doctor/appointmentedit/<%= userList[i].id %>" style="color: blue;">Edit</a> |
+                        <a href="/doctor/appointdelete/<%= userList[i].id%>" style="color:red;">Delete</a>
                       </td>
                     </tr>
 

@@ -50,8 +50,8 @@ module.exports = {
 	},*/
 	
 	create: function(user, callback){
-		var sql = "INSERT INTO`patient` VALUES (?,?,?,?,?,?)";
-		db.execute(sql,['',user.pctname, user.pctnum,user.pctprob,user.pctdoct,user.pctaddress], function(status){
+		var sql = "INSERT INTO`patient` VALUES (?,?,?,?,?,?,?)";
+		db.execute(sql,['',user.pctname, user.pctnum,user.pctprob,user.pctdoct,user.pctaddress,user.pcttime], function(status){
 			callback(status);
 		});
 	},
@@ -65,10 +65,19 @@ module.exports = {
 		});
 	},
 
+	update1: function(user, callback){
+		var sql = "update `patient` set `time`= ?  where `id`=?";
+		db.execute(sql, [user.pcttime,user.id], function(status){
+				 callback(status);
+				 console.log("done");
+		});
+	},
+
 	updatePro: function(user, callback){
 		var sql = "UPDATE `patient` SET `number`= ?, `doctor`=?,`address`= ? WHERE `pname` = ?";
 		db.execute(sql, [user.number,user.doctor,user.address,user.id], function(status){
 			callback(status);
+			
 		});
 	},
 
@@ -80,7 +89,7 @@ module.exports = {
 	},
     
 	delete: function(id, callback){
-		var sql = "DELETE FROM `patient` WHERE id=?";
+		var sql = "DELETE FROM `patient` WHERE id= ?";
 		db.execute(sql, [id], function(status){
 			callback(status);
 		});

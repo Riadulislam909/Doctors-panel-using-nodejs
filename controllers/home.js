@@ -6,6 +6,7 @@ var bed          = require.main.require('./models/bed-model');
 var report       = require.main.require('./models/report-model');
 var prescription = require.main.require('./models/prescription-model');
 var alert        = require('alert-node');
+var signup          = require.main.require('./models/signup-model');
 var router       = express.Router();
 
 router.get('*', function(req, res, next){
@@ -43,9 +44,8 @@ router.post('/addpatient', function(req, res){
 		pctprob:req.body.pprob,
 	    pctdoct:req.body.pdoct,
 		pctaddress:req.body.paddress,
-		//pctpass:req.body.pass
+		pcttime:req.body.ptime,
 	};
-	//if(req.body.pass == req.body.confirmpass)
 	
 	patient.create(data, function(status){
 
@@ -53,7 +53,7 @@ router.post('/addpatient', function(req, res){
 			alert("Patient is Successfully Created");
 			res.redirect('/doctor/addpatient');			
 		}else{
-		    alert("Sorry..There Is Some Error Occur");
+		    alert("Error!!");
 			res.redirect('/doctor/addpatient');
 		}
 	});
@@ -75,9 +75,10 @@ router.get('/viewpct', function(req, res){
 
 
 router.get('/patientedit/:id', function(req, res){
-    
+	
 	patient.getById(req.params.id, function(result){
 		     if(result != null){
+				console.log(req.params.id);
 			res.render('doctor/patientEdit', {user: result[0]});			
 		}else{
 			res.send('Error!!!');
@@ -118,6 +119,16 @@ router.get('/patientdelete/:id', function(req, res){
 	});
 });
 
+
+router.post('/viewpct/search',function(req,res){
+	var key = req.body.search;
+	signup.searchPac(key,function(err,result){
+		console.log(result);
+		
+		res.render('doctor/viewPatient',{userList : result});
+	});
+});
+
 //appointment
 
 router.get('/vappoint', function(req, res){
@@ -145,6 +156,43 @@ router.get('/appointdelete/:id', function(req, res){
 		}
 	});
 });
+
+
+router.get('/appointmentedit/:id',function(req, res){
+	patient.getById(req.params.id, function(result){
+		if(result != null){
+	   res.render('doctor/apointmentEdit', {user: result[0]});			
+   }else{
+	   res.send('Error!!!');
+   }
+});		
+
+
+});
+
+
+
+router.post('/appointmentedit/:id', function(req, res){
+	var data = {
+
+		pcttime: req.body.ptime,
+		id:req.params.id
+	};
+	
+	patient.update1(data, function(status){
+
+		if(status){
+			res.redirect('/doctor/vappoint');			
+		}else{
+			res.redirect('/doctor/appointmentedit/'+req.params.id);
+		}
+	});
+});
+
+
+
+
+
 
 //Prescription
 router.get('/addprescrip', function(req, res){
@@ -464,6 +512,41 @@ router.post('/managePro', function(req, res){
 		}
 	});
 });
+
+//Change Password
+
+router.get('/cngPass', function(req, res){
+	res.render('doctor/acngpass');			
+	
+});
+router.post('/cngPass', function(req, res){
+req.checkBody("new", "Password field cannot be empty").notEmpty();
+req.checkBody("confirm", "Confirm Password field cannot be empty").notEmpty();
+req.checkBody('confirm', 'Password and confirm password did not matched.').equals(req.body.new);
+req.checkBody('new', 'Password must be between 4-60 characters long.').len(4, 60);
+
+const err = req.validationErrors();
+
+if(err){		
+	res.render('doctor/acngpass', {errors: err});
+}else{
+var data = {
+	password: req.body.new,
+	id:req.session.un
+};
+
+doctor.updatePass(data, function(status){
+
+	if(status){
+		res.redirect('/doctor/cngPass');
+		alert("Password is Successfully Changed");
+	}else{
+		res.send("Error");
+	}
+});
+}
+});
+
 
 
 module.exports = router;

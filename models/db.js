@@ -21,6 +21,7 @@ var getConnection = function(callback){
 	callback(connection);
 }
 
+
 module.exports= {
 	getResult: function(sql, params, callback){
 
@@ -76,7 +77,3 @@ module.exports= {
 		});
 	}
 }
-
-
-
-
